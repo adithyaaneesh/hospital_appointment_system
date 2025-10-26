@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="POST" class="p-4">
+    {% csrf_token %}
+        <div>
+            <input type="text" name="name" placeholder="Doctor Name" required><br><br>
+            <input type="text" name="specialty" placeholder="Specialty" required><br><br>
+            <input type="datetime-local" name="available_time" required><br><br>
+            <button type="submit">Add Doctor</button>
+        </div>
+    </form>
+
+</body>
+</html>

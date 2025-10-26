@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hospital Appointment — Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    :root{--brand:#0d6efd;--muted:#6c757d}
+    body {
+        font-family: Inter,system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    .hero {
+        background:linear-gradient(90deg, rgba(13,110,253,0.08), rgba(13,110,253,0.02));
+    }
+    .card-doctor img {
+        height:180px;
+        object-fit:cover;
+        border-top-left-radius:.5rem;
+        border-top-right-radius:.5rem;
+    }
+    .badge-service {
+        background: rgba(13,110,253,0.08); 
+        color:var(--brand); 
+        border-radius:.6rem; 
+        padding:.4rem .6rem;
+    }
+    .rounded-pill-xxl {
+        border-radius:50rem;
+    }
+    .appointment-side {
+        background:#fff;
+        box-shadow:0 8px 24px rgba(13,110,253,0.06); 
+        border-radius:1rem;
+        padding:1rem;
+    }
+    .feature-icon {
+        width:56px;
+        height:56px;
+        border-radius:12px;
+        display:grid;
+        place-items:center;
+        background:#f8fafc;
+    }
+    footer {
+        background:#0b2a66;
+        color:#fff;
+    }
+    @media (min-width:992px){
+      .hero{padding:5rem 0}
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <span class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center me-2" style="width:40px;height:40px;color:#fff"><i class="fa-solid fa-hospital"></i></span>
+      <div>
+        <div class="fw-bold">CarePoint Hospital</div>
+        <small class="text-muted" style="font-size:.75rem">Quality care, close to home</small>
+      </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navmenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#doctors">Doctors</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        <li class="nav-item ms-3"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal"><i class="fa-solid fa-calendar-check me-2"></i>Book Appointment</button></li>
+        <a href="{% url 'book_appointment' %}">Book</a>
+        <a href="{% url 'doctors' %}">doctor</a>
+      </ul>
+    </div>
+  </div>
+</nav>
+<header class="hero">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <h1 class="display-5 fw-bold">Book a hospital appointment in minutes</h1>
+        <p class="lead text-muted">Find doctors, check available slots and reserve a time that fits your schedule.</p>
+        <div class="row g-2 gy-3">
+          <div class="col-sm-8">
+            <div class="input-group shadow-sm rounded-pill overflow-hidden">
+              <span class="input-group-text bg-white border-0"><i class="fa-solid fa-magnifying-glass"></i></span>
+              <input class="form-control border-0" placeholder="Search specialty or doctor (e.g., cardiology)" aria-label="Search">
+              <button class="btn btn-primary rounded-pill">Search</button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4">
+          <div class="d-flex gap-3 flex-wrap">
+            <div class="badge-service"><i class="fa-solid fa-user-doctor me-2"></i> Verified Doctors</div>
+            <div class="badge-service"><i class="fa-solid fa-clock me-2"></i> 24/7 Support</div>
+            <div class="badge-service"><i class="fa-solid fa-shield-heart me-2"></i> Insurance Friendly</div>
+          </div>
+        </div>
+        <div class="mt-5">
+          <h6 class="mb-2">Quick Book</h6>
+          <div class="row g-2">
+            <div class="col-6 col-md-4">
+              <button class="btn btn-outline-primary w-100 rounded-pill">General</button>
+            </div>
+            <div class="col-6 col-md-4">
+              <button class="btn btn-outline-secondary w-100 rounded-pill">Pediatrics</button>
+            </div>
+            <div class="col-6 col-md-4">
+              <button class="btn btn-outline-success w-100 rounded-pill">Cardiology</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5 d-none d-lg-block">
+        <div class="appointment-side">
+          <h5 class="mb-3">Book an appointment</h5>
+          <form id="miniForm">
+            <div class="mb-3">
+              <label class="form-label small">Select Department</label>
+              <select class="form-select" required>
+                <option>General Medicine</option>
+                <option>Pediatrics</option>
+                <option>Cardiology</option>
+                <option>Orthopedics</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small">Date</label>
+              <input type="date" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small">Preferred Time</label>
+              <select class="form-select" required>
+                <option>09:00 - 10:00</option>
+                <option>10:00 - 11:00</option>
+                <option>11:00 - 12:00</option>
+                <option>02:00 - 03:00</option>
+              </select>
+            </div>
+            <div class="d-grid">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal">Continue</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<section id="services" class="py-5">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h3 class="fw-bold">Our Services</h3>
+      <p class="text-muted">Comprehensive care across all specialties</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="d-flex gap-3">
+          <div class="feature-icon"><i class="fa-solid fa-stethoscope fa-lg"></i></div>
+          <div>
+            <h6 class="mb-1">Outpatient Care</h6>
+            <p class="small text-muted mb-0">Same-day consultation and follow-up services.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="d-flex gap-3">
+          <div class="feature-icon"><i class="fa-solid fa-heart-pulse fa-lg"></i></div>
+          <div>
+            <h6 class="mb-1">Cardiac Clinic</h6>
+            <p class="small text-muted mb-0">Advanced diagnostics and heart care.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="d-flex gap-3">
+          <div class="feature-icon"><i class="fa-solid fa-bone fa-lg"></i></div>
+          <div>
+            <h6 class="mb-1">Orthopedics</h6>
+            <p class="small text-muted mb-0">Joint replacement and physiotherapy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="contact" class="py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <h4 class="fw-bold">Need help?</h4>
+        <p class="text-muted">Reach out to our support team or visit the hospital. We're here to help.</p>
+        <ul class="list-unstyled">
+          <li><i class="fa-solid fa-phone me-2"></i> +91 98765 43210</li>
+          <li><i class="fa-solid fa-envelope me-2"></i> appointments@carepoint.example</li>
+          <li><i class="fa-solid fa-location-dot me-2"></i> 123 Health St, Bengaluru</li>
+        </ul>
+      </div>
+      <div class="col-lg-6">
+        <div class="bg-light p-4 rounded">
+          <h6 class="mb-3">Subscribe for updates</h6>
+          <form class="row g-2">
+            <div class="col-sm-8">
+              <input class="form-control" placeholder="Your email">
+            </div>
+            <div class="col-sm-4">
+              <button class="btn btn-primary w-100">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h5>CarePoint Hospital</h5>
+        <p class="small">Providing compassionate care with modern facilities.</p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <small>© <span id="year"></span> CarePoint Hospital. All rights reserved.</small>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('bookForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const modal = bootstrap.Modal.getInstance(document.getElementById('bookModal'));
+    modal.hide();
+    alert('Appointment request received — we will call to confirm.');
+  });
+</script>
+</body>
+</html>
