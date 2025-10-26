@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 from django.contrib.auth.models import User
 
+
 class Credentials(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     firstname = models.CharField(max_length=20,default='DefaultName')
@@ -31,13 +32,16 @@ STATUS_CHOICES = [
     ('Confirmed', 'Confirmed'),
     ('Cancelled', 'Cancelled'),
 ]
+
 class Appointment(models.Model):
-    patient_name = models.CharField(max_length=25)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='appointments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    patient_name = models.CharField(max_length=100)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     date = models.DateField()
-    time_slot = models.CharField(max_length=20)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
+    time_slot = models.CharField(max_length=50)
+    status = models.CharField(max_length=20, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)
+
 
     def __str__(self):
         return f"{self.patient_name} - {self.doctor.name} - {self.date} - {self.time_slot}"

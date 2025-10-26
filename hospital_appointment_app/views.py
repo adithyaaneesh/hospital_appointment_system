@@ -69,12 +69,14 @@ def book_appointment(request):
             return render(request, 'book_appointment.html', {'doctors': doctors})
 
         Appointment.objects.create(
+            user=request.user,
             patient_name=request.POST.get('patient_name'),
             doctor=doctor,
             date=request.POST.get('date'),
             time_slot=request.POST.get('time_slot'),
             status='Pending',
         )
+
         messages.success(request, f'Appointment booked successfully with Dr. {doctor.name}!')
         return redirect('book_appointment')
 
@@ -83,7 +85,7 @@ def book_appointment(request):
 @login_required
 def appointment_history(request):
     doctors = Doctor.objects.all()
-    appointments = Appointment.objects.filter(patient_name=request.user.username).order_by('-created_at')
+    appointments = Appointment.objects.filter(user=request.user).order_by('-created_at')
 
     return render(request, 'appointment_history.html', {
         'doctors': doctors,
