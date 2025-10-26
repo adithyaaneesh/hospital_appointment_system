@@ -69,12 +69,9 @@
       <ul class="navbar-nav ms-auto align-items-lg-center">
         <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-        <li class="nav-item"><a class="nav-link" href="#doctors">Doctors</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-        <li class="nav-item ms-3"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal"><i class="fa-solid fa-calendar-check me-2"></i>Book Appointment</button></li>
-        <a href="{% url 'book_appointment' %}">Book</a>
+        <a href="{% url 'book_appointment' %}" class="btn btn-primary rounded-pill"><i class="fa-solid fa-calendar-check me-2"></i>Book Appointment</a>
         <a href="{% url 'doctors' %}">doctor</a>
-        <a href="{% url 'appointment_history' %}">History</a>
         <a href="{% url 'manage_appointment' %}">Manage</a>
       </ul>
     </div>
@@ -86,15 +83,6 @@
       <div class="col-lg-7">
         <h1 class="display-5 fw-bold">Book a hospital appointment in minutes</h1>
         <p class="lead text-muted">Find doctors, check available slots and reserve a time that fits your schedule.</p>
-        <div class="row g-2 gy-3">
-          <div class="col-sm-8">
-            <div class="input-group shadow-sm rounded-pill overflow-hidden">
-              <span class="input-group-text bg-white border-0"><i class="fa-solid fa-magnifying-glass"></i></span>
-              <input class="form-control border-0" placeholder="Search specialty or doctor (e.g., cardiology)" aria-label="Search">
-              <button class="btn btn-primary rounded-pill">Search</button>
-            </div>
-          </div>
-        </div>
         <div class="mt-4">
           <div class="d-flex gap-3 flex-wrap">
             <div class="badge-service"><i class="fa-solid fa-user-doctor me-2"></i> Verified Doctors</div>
@@ -102,53 +90,6 @@
             <div class="badge-service"><i class="fa-solid fa-shield-heart me-2"></i> Insurance Friendly</div>
           </div>
         </div>
-        <!-- <div class="mt-5">
-          <h6 class="mb-2">Quick Book</h6>
-          <div class="row g-2">
-            <div class="col-6 col-md-4">
-              <button class="btn btn-outline-primary w-100 rounded-pill">General</button>
-            </div>
-            <div class="col-6 col-md-4">
-              <button class="btn btn-outline-secondary w-100 rounded-pill">Pediatrics</button>
-            </div>
-            <div class="col-6 col-md-4">
-              <button class="btn btn-outline-success w-100 rounded-pill">Cardiology</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-5 d-none d-lg-block">
-        <div class="appointment-side">
-          <h5 class="mb-3">Book an appointment</h5>
-          <form id="miniForm">
-            <div class="mb-3">
-              <label class="form-label small">Select Department</label>
-              <select class="form-select" required>
-                <option>General Medicine</option>
-                <option>Pediatrics</option>
-                <option>Cardiology</option>
-                <option>Orthopedics</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label class="form-label small">Date</label>
-              <input type="date" class="form-control" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label small">Preferred Time</label>
-              <select class="form-select" required>
-                <option>09:00 - 10:00</option>
-                <option>10:00 - 11:00</option>
-                <option>11:00 - 12:00</option>
-                <option>02:00 - 03:00</option>
-              </select>
-            </div>
-            <div class="d-grid">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal">Continue</button>
-            </div>
-          </form>
-        </div>
-      </div> -->
     </div>
   </div>
 </header>
