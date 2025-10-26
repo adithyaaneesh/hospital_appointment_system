@@ -11,16 +11,16 @@ class Doctor(models.Model):
         return f"{self.name} - {self.specialty}"
 
 STATUS_CHOICES = [
-    ('pending', 'Pending'),
-    ('confirmed', 'Confirmed'),
-    ('cancelled', 'Cancelled'),
+    ('Pending', 'Pending'),
+    ('Confirmed', 'Confirmed'),
+    ('Cancelled', 'Cancelled'),
 ]
 class Appointment(models.Model):
     patient_name = models.CharField(max_length=25)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='appointments')
     date = models.DateField()
     time_slot = models.CharField(max_length=20)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

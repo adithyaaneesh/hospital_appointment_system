@@ -74,6 +74,8 @@
         <li class="nav-item ms-3"><button class="btn btn-primary rounded-pill" data-bs-toggle="modal"><i class="fa-solid fa-calendar-check me-2"></i>Book Appointment</button></li>
         <a href="{% url 'book_appointment' %}">Book</a>
         <a href="{% url 'doctors' %}">doctor</a>
+        <a href="{% url 'appointment_history' %}">History</a>
+        <a href="{% url 'manage_appointment' %}">Manage</a>
       </ul>
     </div>
   </div>
@@ -100,7 +102,7 @@
             <div class="badge-service"><i class="fa-solid fa-shield-heart me-2"></i> Insurance Friendly</div>
           </div>
         </div>
-        <div class="mt-5">
+        <!-- <div class="mt-5">
           <h6 class="mb-2">Quick Book</h6>
           <div class="row g-2">
             <div class="col-6 col-md-4">
@@ -146,7 +148,7 @@
             </div>
           </form>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </header>
