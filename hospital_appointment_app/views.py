@@ -63,6 +63,9 @@ def appointment_history(request):
         'appointments': appointments,
     })
 
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
 def manage_appointment(request):
     requests_list = Appointment.objects.all().order_by('-created_at')
     return render(request, 'manage_appointment.html', {'requests': requests_list})
