@@ -65,7 +65,7 @@ def book_appointment(request):
         try:
             doctor = Doctor.objects.get(name=doctor_name)
         except Doctor.DoesNotExist:
-            messages.error(request, f'Doctor "{doctor_name}" not found.')  # ❌ Error
+            messages.error(request, f'Doctor "{doctor_name}" not found.') 
             return render(request, 'book_appointment.html', {'doctors': doctors})
 
         Appointment.objects.create(
@@ -75,33 +75,21 @@ def book_appointment(request):
             time_slot=request.POST.get('time_slot'),
             status='Pending',
         )
-        messages.success(request, f'Appointment booked successfully with Dr. {doctor.name}!')  # ✅ Success
-        return redirect('index')
+        messages.success(request, f'Appointment booked successfully with Dr. {doctor.name}!')
+        return redirect('book_appointment')
 
     return render(request, 'book_appointment.html', {'doctors': doctors})
 
 @login_required
 def appointment_history(request):
     doctors = Doctor.objects.all()
-    appointments = Appointment.objects.all().order_by('-created_at')
-
-    if request.method == 'POST':
-        doctor_id = request.POST.get('doctor')
-        doctor = Doctor.objects.get(id=doctor_id)
-
-        Appointment.objects.create(
-            patient_name=request.POST.get('patient_name'),
-            doctor=doctor,
-            date=request.POST.get('date'),
-            time_slot=request.POST.get('time_slot'),
-            status='Pending',
-        )
-        return redirect('appointment_history')
+    appointments = Appointment.objects.filter(patient_name=request.user.username).order_by('-created_at')
 
     return render(request, 'appointment_history.html', {
         'doctors': doctors,
         'appointments': appointments,
     })
+
 
 @login_required
 def dashboard(request):
