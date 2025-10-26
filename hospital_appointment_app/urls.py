@@ -12,5 +12,8 @@ urlpatterns = [
     path('approve/<int:appointment_id>/', views.approve_request, name='approve_request'),
     path('reject/<int:appointment_id>/', views.reject_request, name='reject_request'),    
     path('doctors', views.doctor, name='doctors'),
+
+    # path('register/', views.user_register, name='register'),
+    # path('login/', views.user_login, name='login'),
 ]
 
