@@ -1,13 +1,52 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Appointment, Doctor
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from .forms import UserRegistrationForm
 
 
-# Create your views here.
+
+def user_register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'register.html', {'form': form})
+
+
+
+def user_login(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)  
+
+            if user.is_superuser:
+                return redirect('dashboard')  
+            return redirect('index')
+
+        return render(request, "login.html", {'error': 'Invalid username or password'})
+
+    return render(request, "login.html")
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect('login')
+
 
 def index(request):
     return render(request, 'index.html')
 
+@login_required
 def doctor(request):
     if request.method == 'POST':
         Doctor.objects.create(
@@ -18,7 +57,7 @@ def doctor(request):
         return redirect('index')
     return render(request, 'doctors.html')
 
-
+@login_required
 def book_appointment(request):
     doctors = Doctor.objects.all()
     if request.method == 'POST':
@@ -41,6 +80,7 @@ def book_appointment(request):
 
     return render(request, 'book_appointment.html', {'doctors': doctors})
 
+@login_required
 def appointment_history(request):
     doctors = Doctor.objects.all()
     appointments = Appointment.objects.all().order_by('-created_at')
@@ -63,13 +103,16 @@ def appointment_history(request):
         'appointments': appointments,
     })
 
+@login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
 
+@login_required
 def manage_appointment(request):
     requests_list = Appointment.objects.all().order_by('-created_at')
     return render(request, 'manage_appointment.html', {'requests': requests_list})
 
+@login_required
 def approve_request(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)
     appointment.status = 'Confirmed'
@@ -77,6 +120,7 @@ def approve_request(request, appointment_id):
     messages.success(request, f'Appointment for {appointment.patient_name} confirmed.')
     return redirect('manage_appointment')
 
+@login_required
 def reject_request(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)
     appointment.status = 'Cancelled'

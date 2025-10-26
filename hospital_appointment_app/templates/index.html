@@ -71,7 +71,8 @@
         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
         <a href="{% url 'book_appointment' %}" class="btn btn-primary rounded-pill"><i class="fa-solid fa-calendar-check me-2"></i>Book Appointment</a>
-        <a href="{% url 'dashboard' %}">dashboard</a>
+        <a class="btn btn-secondary rounded-pill" href="{% url 'logout' %}" onclick="return confirmLogout()">Logout</a>
+
       </ul>
     </div>
   </div>
@@ -174,4 +175,9 @@
   </div>
 </footer>
 </body>
+<script>
+    function confirmLogout() {
+        return confirm("Are you sure you want to log out?");
+    }
+</script>
 </html>

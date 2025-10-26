@@ -96,7 +96,7 @@
     <a href="{% url 'doctors' %}">Add Doctor</a>
     <a href="{% url 'manage_appointment' %}">Appointments</a>
     <!-- <a href="{% url 'dashboard' %}">Patients</a> -->
-    <a href="#" onclick="return confirmLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    <a href="{% url 'logout' %}" onclick="return confirmLogout()">Logout</a>
 </div>
 
 
@@ -114,9 +114,9 @@
     </div>
 </div>
 </body>
-    <script>
-        function confirmLogout() {
-            return confirm("Are you sure you want to log out?");
-        }
-    </script>
+<script>
+    function confirmLogout() {
+        return confirm("Are you sure you want to log out?");
+    }
+</script>
 </html>
