@@ -95,7 +95,11 @@ def appointment_history(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    total_doctors = Doctor.objects.count()
+    context = {
+        'total_doctors' : total_doctors ,
+    }
+    return render(request, 'dashboard.html', context)
 
 @login_required
 def manage_appointment(request):
