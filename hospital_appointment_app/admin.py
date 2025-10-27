@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Doctor, Appointment, Credentials
+from .models import Doctor, Appointment
 
 # Register your models here.
 
